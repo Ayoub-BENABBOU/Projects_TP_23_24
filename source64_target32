@@ -1,0 +1,195 @@
+    {'method': 'CDAN', 'ndomains': 2, 'output_path': 'results/res', 'threshold': 0.7, 'edge_features': 128, 'source_iters': 100, 'finetune_iters': 1000, 'adapt_iters': 3000, 'test_interval': 500, 'num_workers': 4, 'lambda_edge': 1.0, 'lambda_node': 0.3, 'lambda_adv': 1.0, 'random_dim': 1024, 'use_cgct_mask': True, 'prep': {'source': Compose(
+    <preprocess.ResizeImage object at 0x7f05b06f8f10>
+    RandomResizedCrop(size=(224, 224), scale=(0.08, 1.0), ratio=(0.75, 1.3333), interpolation=bilinear)
+    RandomHorizontalFlip(p=0.5)
+    ToTensor()
+    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+), 'target': Compose(
+    <preprocess.ResizeImage object at 0x7f05b06f8f70>
+    RandomResizedCrop(size=(224, 224), scale=(0.08, 1.0), ratio=(0.75, 1.3333), interpolation=bilinear)
+    RandomHorizontalFlip(p=0.5)
+    ToTensor()
+    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+), 'test': Compose(
+    <preprocess.ResizeImage object at 0x7f05ae2c2160>
+    <preprocess.PlaceCrop object at 0x7f05ae2c21c0>
+    ToTensor()
+    Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+)}, 'encoder': {'name': <class 'networks.ResNetFc'>, 'params': {'resnet_name': 'ResNet50', 'use_bottleneck': True, 'bottleneck_dim': 256, 'new_cls': True, 'class_num': 65}}, 'optimizer': {'type': <class 'torch.optim.sgd.SGD'>, 'optim_params': {'lr': 0.001, 'momentum': 0.9, 'weight_decay': 0.0005, 'nesterov': True}, 'lr_type': 'inv', 'lr_param': {'lr': 0.001, 'gamma': 0.001, 'power': 0.75}}, 'dataset': 'office-home', 'data_root': 'data/OfficeHomeDataset', 'data': {'source': {'name': 'art', 'batch_size': 64}, 'target': {'name': ['clipart', 'product', 'real'], 'batch_size': 32}, 'test': {'name': ['clipart', 'product', 'real'], 'batch_size': 512}, 'image_list_root': 'data/office-home/'}, 'out_file': <_io.TextIOWrapper name='results/res/log.txt' mode='w' encoding='UTF-8'>}
+==> Step 1: Pre-training on the source dataset ...
+Iters:(   0/100)	MLP loss:4.6698	GNN loss:4.3724	Edge loss:1.0290
+Iters:(  20/100)	MLP loss:2.9545	GNN loss:3.2082	Edge loss:0.1145
+Iters:(  40/100)	MLP loss:1.6544	GNN loss:2.2800	Edge loss:0.0813
+Iters:(  60/100)	MLP loss:1.4234	GNN loss:2.0962	Edge loss:0.0725
+Iters:(  80/100)	MLP loss:1.1942	GNN loss:1.7533	Edge loss:0.0846
+Iters:(  99/100)	MLP loss:0.8335	GNN loss:1.6404	Edge loss:0.0719
+==> Finished pre-training on source!
+
+==> Starting the adaptation
+Iters:(   0/3000)	MLP loss: 0.9785	 GNN Loss: 0.5230	 Edge Loss: 0.0776	 Transfer loss:0.6919
+Iters:(  20/3000)	MLP loss: 0.8630	 GNN Loss: 0.4771	 Edge Loss: 0.0630	 Transfer loss:0.6928
+Iters:(  40/3000)	MLP loss: 0.5070	 GNN Loss: 0.4004	 Edge Loss: 0.0820	 Transfer loss:0.6162
+Iters:(  60/3000)	MLP loss: 0.7886	 GNN Loss: 0.4240	 Edge Loss: 0.0779	 Transfer loss:0.5485
+Iters:(  80/3000)	MLP loss: 0.3267	 GNN Loss: 0.3214	 Edge Loss: 0.0548	 Transfer loss:0.5551
+Iters:( 100/3000)	MLP loss: 0.7349	 GNN Loss: 0.4139	 Edge Loss: 0.0689	 Transfer loss:0.5742
+Iters:( 120/3000)	MLP loss: 0.4522	 GNN Loss: 0.3221	 Edge Loss: 0.0502	 Transfer loss:0.6370
+Iters:( 140/3000)	MLP loss: 0.4042	 GNN Loss: 0.3439	 Edge Loss: 0.0646	 Transfer loss:0.5005
+Iters:( 160/3000)	MLP loss: 0.4838	 GNN Loss: 0.3249	 Edge Loss: 0.0605	 Transfer loss:0.6209
+Iters:( 180/3000)	MLP loss: 0.2719	 GNN Loss: 0.2843	 Edge Loss: 0.0509	 Transfer loss:0.5381
+Iters:( 200/3000)	MLP loss: 0.5983	 GNN Loss: 0.3824	 Edge Loss: 0.0657	 Transfer loss:0.5484
+Iters:( 220/3000)	MLP loss: 0.5066	 GNN Loss: 0.2922	 Edge Loss: 0.0589	 Transfer loss:0.6109
+Iters:( 240/3000)	MLP loss: 0.3423	 GNN Loss: 0.2531	 Edge Loss: 0.0358	 Transfer loss:0.5982
+Iters:( 260/3000)	MLP loss: 0.2789	 GNN Loss: 0.2220	 Edge Loss: 0.0343	 Transfer loss:0.5217
+Iters:( 280/3000)	MLP loss: 0.5819	 GNN Loss: 0.3032	 Edge Loss: 0.0536	 Transfer loss:0.5326
+Iters:( 300/3000)	MLP loss: 0.2957	 GNN Loss: 0.2380	 Edge Loss: 0.0418	 Transfer loss:0.5584
+Iters:( 320/3000)	MLP loss: 0.2748	 GNN Loss: 0.2336	 Edge Loss: 0.0411	 Transfer loss:0.5516
+Iters:( 340/3000)	MLP loss: 0.4734	 GNN Loss: 0.2679	 Edge Loss: 0.0464	 Transfer loss:0.5106
+Iters:( 360/3000)	MLP loss: 0.2687	 GNN Loss: 0.2174	 Edge Loss: 0.0493	 Transfer loss:0.5541
+Iters:( 380/3000)	MLP loss: 0.2328	 GNN Loss: 0.2022	 Edge Loss: 0.0426	 Transfer loss:0.5243
+Iters:( 400/3000)	MLP loss: 0.1480	 GNN Loss: 0.2014	 Edge Loss: 0.0454	 Transfer loss:0.5034
+Iters:( 420/3000)	MLP loss: 0.3203	 GNN Loss: 0.2080	 Edge Loss: 0.0471	 Transfer loss:0.5270
+Iters:( 440/3000)	MLP loss: 0.2888	 GNN Loss: 0.2274	 Edge Loss: 0.0458	 Transfer loss:0.5233
+Iters:( 460/3000)	MLP loss: 0.2712	 GNN Loss: 0.2205	 Edge Loss: 0.0428	 Transfer loss:0.4554
+Iters:( 480/3000)	MLP loss: 0.4688	 GNN Loss: 0.2437	 Edge Loss: 0.0510	 Transfer loss:0.5701
+Dataset:clipart	Test Accuracy mlp 42.3597	Test Accuracy gnn 43.2532
+Dataset:product	Test Accuracy mlp 64.1361	Test Accuracy gnn 65.3976
+Dataset:real	Test Accuracy mlp 71.4712	Test Accuracy gnn 72.9860
+iter: 499, Avg Accuracy MLP Classifier: 59.3223, Avg Accuracy GNN classifier: 60.5456
+Iters:( 500/3000)	MLP loss: 0.1971	 GNN Loss: 0.2210	 Edge Loss: 0.0408	 Transfer loss:0.4651
+Iters:( 520/3000)	MLP loss: 0.2706	 GNN Loss: 0.2029	 Edge Loss: 0.0361	 Transfer loss:0.4441
+Iters:( 540/3000)	MLP loss: 0.2422	 GNN Loss: 0.1852	 Edge Loss: 0.0446	 Transfer loss:0.4522
+Iters:( 560/3000)	MLP loss: 0.2996	 GNN Loss: 0.2122	 Edge Loss: 0.0388	 Transfer loss:0.4929
+Iters:( 580/3000)	MLP loss: 0.2061	 GNN Loss: 0.1789	 Edge Loss: 0.0446	 Transfer loss:0.5111
+Iters:( 600/3000)	MLP loss: 0.1950	 GNN Loss: 0.1622	 Edge Loss: 0.0455	 Transfer loss:0.6214
+Iters:( 620/3000)	MLP loss: 0.2131	 GNN Loss: 0.1603	 Edge Loss: 0.0375	 Transfer loss:0.4312
+Iters:( 640/3000)	MLP loss: 0.1270	 GNN Loss: 0.1669	 Edge Loss: 0.0480	 Transfer loss:0.5225
+Iters:( 660/3000)	MLP loss: 0.3934	 GNN Loss: 0.2309	 Edge Loss: 0.0440	 Transfer loss:0.5895
+Iters:( 680/3000)	MLP loss: 0.0790	 GNN Loss: 0.1149	 Edge Loss: 0.0251	 Transfer loss:0.4876
+Iters:( 700/3000)	MLP loss: 0.1142	 GNN Loss: 0.1771	 Edge Loss: 0.0365	 Transfer loss:0.4891
+Iters:( 720/3000)	MLP loss: 0.2277	 GNN Loss: 0.1815	 Edge Loss: 0.0433	 Transfer loss:0.4787
+Iters:( 740/3000)	MLP loss: 0.1290	 GNN Loss: 0.1377	 Edge Loss: 0.0408	 Transfer loss:0.4588
+Iters:( 760/3000)	MLP loss: 0.0602	 GNN Loss: 0.1498	 Edge Loss: 0.0391	 Transfer loss:0.4829
+Iters:( 780/3000)	MLP loss: 0.2449	 GNN Loss: 0.1957	 Edge Loss: 0.0438	 Transfer loss:0.4904
+Iters:( 800/3000)	MLP loss: 0.3277	 GNN Loss: 0.1825	 Edge Loss: 0.0434	 Transfer loss:0.4634
+Iters:( 820/3000)	MLP loss: 0.2039	 GNN Loss: 0.1613	 Edge Loss: 0.0365	 Transfer loss:0.4684
+Iters:( 840/3000)	MLP loss: 0.2928	 GNN Loss: 0.1684	 Edge Loss: 0.0374	 Transfer loss:0.5568
+Iters:( 860/3000)	MLP loss: 0.3923	 GNN Loss: 0.1736	 Edge Loss: 0.0425	 Transfer loss:0.4648
+Iters:( 880/3000)	MLP loss: 0.1810	 GNN Loss: 0.1409	 Edge Loss: 0.0345	 Transfer loss:0.4751
+Iters:( 900/3000)	MLP loss: 0.2475	 GNN Loss: 0.1798	 Edge Loss: 0.0497	 Transfer loss:0.5903
+Iters:( 920/3000)	MLP loss: 0.1983	 GNN Loss: 0.1560	 Edge Loss: 0.0424	 Transfer loss:0.4512
+Iters:( 940/3000)	MLP loss: 0.2697	 GNN Loss: 0.1771	 Edge Loss: 0.0363	 Transfer loss:0.6089
+Iters:( 960/3000)	MLP loss: 0.1912	 GNN Loss: 0.1526	 Edge Loss: 0.0335	 Transfer loss:0.5095
+Iters:( 980/3000)	MLP loss: 0.2499	 GNN Loss: 0.1523	 Edge Loss: 0.0317	 Transfer loss:0.5549
+Dataset:clipart	Test Accuracy mlp 42.2910	Test Accuracy gnn 43.5510
+Dataset:product	Test Accuracy mlp 64.0234	Test Accuracy gnn 66.5916
+Dataset:real	Test Accuracy mlp 72.2745	Test Accuracy gnn 74.9598
+iter: 999, Avg Accuracy MLP Classifier: 59.5296, Avg Accuracy GNN classifier: 61.7008
+Iters:(1000/3000)	MLP loss: 0.2937	 GNN Loss: 0.1500	 Edge Loss: 0.0396	 Transfer loss:0.4997
+Iters:(1020/3000)	MLP loss: 0.1986	 GNN Loss: 0.1587	 Edge Loss: 0.0341	 Transfer loss:0.5497
+Iters:(1040/3000)	MLP loss: 0.1886	 GNN Loss: 0.1649	 Edge Loss: 0.0351	 Transfer loss:0.5703
+Iters:(1060/3000)	MLP loss: 0.0900	 GNN Loss: 0.1166	 Edge Loss: 0.0461	 Transfer loss:0.4770
+Iters:(1080/3000)	MLP loss: 0.3539	 GNN Loss: 0.1913	 Edge Loss: 0.0539	 Transfer loss:0.5423
+Iters:(1100/3000)	MLP loss: 0.1311	 GNN Loss: 0.1370	 Edge Loss: 0.0377	 Transfer loss:0.4492
+Iters:(1120/3000)	MLP loss: 0.1484	 GNN Loss: 0.1317	 Edge Loss: 0.0284	 Transfer loss:0.3962
+Iters:(1140/3000)	MLP loss: 0.1136	 GNN Loss: 0.0987	 Edge Loss: 0.0360	 Transfer loss:0.4419
+Iters:(1160/3000)	MLP loss: 0.3296	 GNN Loss: 0.1342	 Edge Loss: 0.0418	 Transfer loss:0.5150
+Iters:(1180/3000)	MLP loss: 0.1327	 GNN Loss: 0.1387	 Edge Loss: 0.0355	 Transfer loss:0.5274
+Iters:(1200/3000)	MLP loss: 0.1198	 GNN Loss: 0.1162	 Edge Loss: 0.0298	 Transfer loss:0.5572
+Iters:(1220/3000)	MLP loss: 0.3976	 GNN Loss: 0.2212	 Edge Loss: 0.0490	 Transfer loss:0.4803
+Iters:(1240/3000)	MLP loss: 0.2553	 GNN Loss: 0.1635	 Edge Loss: 0.0527	 Transfer loss:0.5790
+Iters:(1260/3000)	MLP loss: 0.0615	 GNN Loss: 0.1075	 Edge Loss: 0.0339	 Transfer loss:0.5815
+Iters:(1280/3000)	MLP loss: 0.2106	 GNN Loss: 0.1264	 Edge Loss: 0.0429	 Transfer loss:0.5093
+Iters:(1300/3000)	MLP loss: 0.3755	 GNN Loss: 0.1876	 Edge Loss: 0.0407	 Transfer loss:0.5467
+Iters:(1320/3000)	MLP loss: 0.1775	 GNN Loss: 0.1411	 Edge Loss: 0.0396	 Transfer loss:0.5822
+Iters:(1340/3000)	MLP loss: 0.0861	 GNN Loss: 0.0766	 Edge Loss: 0.0328	 Transfer loss:0.4164
+Iters:(1360/3000)	MLP loss: 0.1693	 GNN Loss: 0.1479	 Edge Loss: 0.0327	 Transfer loss:0.5145
+Iters:(1380/3000)	MLP loss: 0.1613	 GNN Loss: 0.1345	 Edge Loss: 0.0403	 Transfer loss:0.5058
+Iters:(1400/3000)	MLP loss: 0.2009	 GNN Loss: 0.1292	 Edge Loss: 0.0327	 Transfer loss:0.5046
+Iters:(1420/3000)	MLP loss: 0.0424	 GNN Loss: 0.0853	 Edge Loss: 0.0378	 Transfer loss:0.4573
+Iters:(1440/3000)	MLP loss: 0.1249	 GNN Loss: 0.1260	 Edge Loss: 0.0284	 Transfer loss:0.4901
+Iters:(1460/3000)	MLP loss: 0.1750	 GNN Loss: 0.1772	 Edge Loss: 0.0511	 Transfer loss:0.5562
+Iters:(1480/3000)	MLP loss: 0.3718	 GNN Loss: 0.1794	 Edge Loss: 0.0480	 Transfer loss:0.5546
+
+
+
+Iters:(1880/3000)	MLP loss: 0.0531	 GNN Loss: 0.0712	 Edge Loss: 0.0260	 Transfer loss:0.4788
+Iters:(1900/3000)	MLP loss: 0.0655	 GNN Loss: 0.0646	 Edge Loss: 0.0300	 Transfer loss:0.5380
+Iters:(1920/3000)	MLP loss: 0.1487	 GNN Loss: 0.1037	 Edge Loss: 0.0332	 Transfer loss:0.4732
+Iters:(1940/3000)	MLP loss: 0.0909	 GNN Loss: 0.0769	 Edge Loss: 0.0252	 Transfer loss:0.4745
+Iters:(1960/3000)	MLP loss: 0.1426	 GNN Loss: 0.0767	 Edge Loss: 0.0283	 Transfer loss:0.5258
+Iters:(1980/3000)	MLP loss: 0.0697	 GNN Loss: 0.0911	 Edge Loss: 0.0287	 Transfer loss:0.4701
+Dataset:clipart	Test Accuracy mlp 42.7950	Test Accuracy gnn 44.7652
+Dataset:product	Test Accuracy mlp 64.6993	Test Accuracy gnn 69.3625
+Dataset:real	Test Accuracy mlp 72.5040	Test Accuracy gnn 76.3828
+iter: 1999, Avg Accuracy MLP Classifier: 59.9994, Avg Accuracy GNN classifier: 63.5035
+Iters:(2000/3000)	MLP loss: 0.0604	 GNN Loss: 0.1047	 Edge Loss: 0.0317	 Transfer loss:0.5148
+Iters:(2020/3000)	MLP loss: 0.3086	 GNN Loss: 0.1964	 Edge Loss: 0.0447	 Transfer loss:0.5537
+Iters:(2040/3000)	MLP loss: 0.0881	 GNN Loss: 0.0958	 Edge Loss: 0.0340	 Transfer loss:0.5410
+Iters:(2060/3000)	MLP loss: 0.0899	 GNN Loss: 0.0859	 Edge Loss: 0.0191	 Transfer loss:0.4932
+Iters:(2080/3000)	MLP loss: 0.2005	 GNN Loss: 0.0965	 Edge Loss: 0.0305	 Transfer loss:0.5164
+Iters:(2100/3000)	MLP loss: 0.1624	 GNN Loss: 0.1068	 Edge Loss: 0.0319	 Transfer loss:0.4988
+Iters:(2120/3000)	MLP loss: 0.1797	 GNN Loss: 0.1694	 Edge Loss: 0.0409	 Transfer loss:0.5133
+Iters:(2140/3000)	MLP loss: 0.1783	 GNN Loss: 0.1569	 Edge Loss: 0.0381	 Transfer loss:0.5088
+Iters:(2160/3000)	MLP loss: 0.1535	 GNN Loss: 0.1390	 Edge Loss: 0.0386	 Transfer loss:0.5108
+Iters:(2180/3000)	MLP loss: 0.1865	 GNN Loss: 0.1308	 Edge Loss: 0.0338	 Transfer loss:0.5300
+Iters:(2200/3000)	MLP loss: 0.0996	 GNN Loss: 0.1067	 Edge Loss: 0.0332	 Transfer loss:0.5897
+Iters:(2220/3000)	MLP loss: 0.1181	 GNN Loss: 0.0997	 Edge Loss: 0.0233	 Transfer loss:0.5608
+Iters:(2240/3000)	MLP loss: 0.0807	 GNN Loss: 0.0549	 Edge Loss: 0.0285	 Transfer loss:0.5529
+Iters:(2260/3000)	MLP loss: 0.1119	 GNN Loss: 0.1074	 Edge Loss: 0.0367	 Transfer loss:0.4735
+Iters:(2280/3000)	MLP loss: 0.1624	 GNN Loss: 0.1301	 Edge Loss: 0.0325	 Transfer loss:0.4700
+Iters:(2300/3000)	MLP loss: 0.1858	 GNN Loss: 0.1333	 Edge Loss: 0.0324	 Transfer loss:0.5290
+Iters:(2320/3000)	MLP loss: 0.2030	 GNN Loss: 0.1328	 Edge Loss: 0.0372	 Transfer loss:0.5266
+Iters:(2340/3000)	MLP loss: 0.0834	 GNN Loss: 0.0916	 Edge Loss: 0.0329	 Transfer loss:0.5246
+Iters:(2360/3000)	MLP loss: 0.0982	 GNN Loss: 0.0659	 Edge Loss: 0.0391	 Transfer loss:0.5420
+Iters:(2380/3000)	MLP loss: 0.1338	 GNN Loss: 0.0804	 Edge Loss: 0.0244	 Transfer loss:0.4722
+Iters:(2400/3000)	MLP loss: 0.1273	 GNN Loss: 0.1017	 Edge Loss: 0.0360	 Transfer loss:0.5163
+Iters:(2420/3000)	MLP loss: 0.2403	 GNN Loss: 0.1153	 Edge Loss: 0.0297	 Transfer loss:0.4306
+Iters:(2440/3000)	MLP loss: 0.1040	 GNN Loss: 0.0806	 Edge Loss: 0.0300	 Transfer loss:0.5544
+Iters:(2460/3000)	MLP loss: 0.2246	 GNN Loss: 0.1303	 Edge Loss: 0.0263	 Transfer loss:0.5537
+Iters:(2480/3000)	MLP loss: 0.0903	 GNN Loss: 0.0865	 Edge Loss: 0.0248	 Transfer loss:0.4618
+Dataset:clipart	Test Accuracy mlp 41.8557	Test Accuracy gnn 45.2921
+Dataset:product	Test Accuracy mlp 65.1273	Test Accuracy gnn 69.8130
+Dataset:real	Test Accuracy mlp 72.7106	Test Accuracy gnn 77.3927
+iter: 2499, Avg Accuracy MLP Classifier: 59.8978, Avg Accuracy GNN classifier: 64.1659
+Iters:(2500/3000)	MLP loss: 0.0766	 GNN Loss: 0.1033	 Edge Loss: 0.0343	 Transfer loss:0.5561
+Iters:(2520/3000)	MLP loss: 0.1499	 GNN Loss: 0.1268	 Edge Loss: 0.0433	 Transfer loss:0.5674
+Iters:(2540/3000)	MLP loss: 0.1887	 GNN Loss: 0.1177	 Edge Loss: 0.0328	 Transfer loss:0.5860
+Iters:(2560/3000)	MLP loss: 0.2284	 GNN Loss: 0.1365	 Edge Loss: 0.0418	 Transfer loss:0.5643
+Iters:(2580/3000)	MLP loss: 0.1052	 GNN Loss: 0.1275	 Edge Loss: 0.0398	 Transfer loss:0.5236
+Iters:(2600/3000)	MLP loss: 0.1711	 GNN Loss: 0.1121	 Edge Loss: 0.0305	 Transfer loss:0.5622
+Iters:(2620/3000)	MLP loss: 0.0483	 GNN Loss: 0.0761	 Edge Loss: 0.0288	 Transfer loss:0.5028
+Iters:(2640/3000)	MLP loss: 0.2395	 GNN Loss: 0.1176	 Edge Loss: 0.0413	 Transfer loss:0.6639
+Iters:(2660/3000)	MLP loss: 0.1002	 GNN Loss: 0.0801	 Edge Loss: 0.0236	 Transfer loss:0.5383
+Iters:(2680/3000)	MLP loss: 0.1729	 GNN Loss: 0.1054	 Edge Loss: 0.0366	 Transfer loss:0.5471
+Iters:(2700/3000)	MLP loss: 0.0620	 GNN Loss: 0.0671	 Edge Loss: 0.0294	 Transfer loss:0.5128
+Iters:(2720/3000)	MLP loss: 0.3164	 GNN Loss: 0.1294	 Edge Loss: 0.0461	 Transfer loss:0.5913
+Iters:(2740/3000)	MLP loss: 0.1676	 GNN Loss: 0.1029	 Edge Loss: 0.0370	 Transfer loss:0.5460
+Iters:(2760/3000)	MLP loss: 0.0549	 GNN Loss: 0.0830	 Edge Loss: 0.0275	 Transfer loss:0.5012
+Iters:(2780/3000)	MLP loss: 0.1311	 GNN Loss: 0.0993	 Edge Loss: 0.0383	 Transfer loss:0.5338
+Iters:(2800/3000)	MLP loss: 0.1026	 GNN Loss: 0.0730	 Edge Loss: 0.0192	 Transfer loss:0.4949
+Iters:(2820/3000)	MLP loss: 0.2180	 GNN Loss: 0.0931	 Edge Loss: 0.0360	 Transfer loss:0.6110
+Iters:(2840/3000)	MLP loss: 0.0960	 GNN Loss: 0.0941	 Edge Loss: 0.0373	 Transfer loss:0.4973
+Iters:(2860/3000)	MLP loss: 0.1199	 GNN Loss: 0.0956	 Edge Loss: 0.0331	 Transfer loss:0.6024
+Iters:(2880/3000)	MLP loss: 0.0962	 GNN Loss: 0.0929	 Edge Loss: 0.0244	 Transfer loss:0.5652
+Iters:(2900/3000)	MLP loss: 0.1912	 GNN Loss: 0.1274	 Edge Loss: 0.0377	 Transfer loss:0.5845
+Iters:(2920/3000)	MLP loss: 0.2251	 GNN Loss: 0.1392	 Edge Loss: 0.0323	 Transfer loss:0.5097
+Iters:(2940/3000)	MLP loss: 0.0578	 GNN Loss: 0.0880	 Edge Loss: 0.0280	 Transfer loss:0.5461
+Iters:(2960/3000)	MLP loss: 0.1433	 GNN Loss: 0.0853	 Edge Loss: 0.0314	 Transfer loss:0.5310
+Iters:(2980/3000)	MLP loss: 0.1228	 GNN Loss: 0.0850	 Edge Loss: 0.0255	 Transfer loss:0.5558
+Iters:(2999/3000)	MLP loss: 0.1563	 GNN Loss: 0.0773	 Edge Loss: 0.0286	 Transfer loss:0.5346
+Dataset:clipart	Test Accuracy mlp 42.0619	Test Accuracy gnn 44.6506
+Dataset:product	Test Accuracy mlp 65.6229	Test Accuracy gnn 69.8130
+Dataset:real	Test Accuracy mlp 73.4909	Test Accuracy gnn 77.2550
+iter: 2999, Avg Accuracy MLP Classifier: 60.3919, Avg Accuracy GNN classifier: 63.9062
+==> Finishing 0 adaptation episode!
+
+Updating pseudo labels of dataset: clipart	Pseudo-label acc: 75.3864 (1268/1682)	 Total samples: 4365
+
+Updating pseudo labels of dataset: product	Pseudo-label acc: 88.1155 (2380/2701)	 Total samples: 4439
+
+Updating pseudo labels of dataset: real	Pseudo-label acc: 92.2948 (2755/2985)	 Total samples: 4357
+
+Iters:(   0/3000)	MLP loss: 0.1225	 GNN Loss: 0.0800	 Edge Loss: 0.0350	 Transfer loss:0.5453
+Iters:(  20/3000)	MLP loss: 0.2744	 GNN Loss: 0.1397	 Edge Loss: 0.0421	 Transfer loss:0.5983
+Iters:(  40/3000)	MLP loss: 0.1733	 GNN Loss: 0.0713	 Edge Loss: 0.0231	 Transfer loss:0.5251
+Iters:(  60/3000)	MLP loss: 0.2675	 GNN Loss: 0.1114	 Edge Loss: 0.0386	 Transfer loss:0.5825
